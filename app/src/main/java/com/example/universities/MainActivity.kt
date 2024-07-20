@@ -16,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    var isFirstStart: Boolean = true
 
     @SuppressLint("CommitTransaction")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragmentContainer, CountriesFragment())
+            .add(R.id.fragmentContainer,  CountriesFragment.newInstance(isFirstStart))
             .commit()
     }
 }

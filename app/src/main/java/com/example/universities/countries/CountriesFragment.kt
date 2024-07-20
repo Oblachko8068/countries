@@ -11,6 +11,7 @@ import com.example.universities.databinding.FragmentCountriesBinding
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.universities.MainActivity
 import com.example.universities.R
 import com.example.universities.countries.CountriesViewModel.Companion.searchTextLiveData
 import com.example.universities.universities.COUNTRY
@@ -35,7 +36,10 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
-        checkSavedCountry()
+        if ((activity as? MainActivity)?.isFirstStart == true) {
+            checkSavedCountry()
+            (activity as? MainActivity)?.isFirstStart = false
+        }
         val adapter = recyclerView?.adapter as? CountryRecyclerAdapter
         val mediatorLiveData = countriesViewModel.getMediatorLiveData()
         mediatorLiveData.observe(viewLifecycleOwner) {
@@ -54,7 +58,7 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
         })
     }
 
-    private fun checkSavedCountry() {
+    fun checkSavedCountry() {
         val savedCountry = countriesViewModel.getSharedPrefData()
         if (savedCountry != null){
             launchFragment(savedCountry)
@@ -82,5 +86,15 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
             .addToBackStack(null)
             .replace(R.id.fragmentContainer, UniversitiesFragment.newInstance(country))
             .commitAllowingStateLoss()
+    }
+
+    companion object {
+        fun newInstance(isFirstStart: Boolean): CountriesFragment {
+            return CountriesFragment().apply {
+                arguments = Bundle().apply {
+                    putBoolean("isFirstStart", isFirstStart)
+                }
+            }
+        }
     }
 }

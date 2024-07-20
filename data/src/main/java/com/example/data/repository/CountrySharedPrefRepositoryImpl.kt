@@ -1,6 +1,5 @@
 package com.example.data.repository
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import com.example.domain.repository.CountrySharedPrefRepository
 import javax.inject.Inject
