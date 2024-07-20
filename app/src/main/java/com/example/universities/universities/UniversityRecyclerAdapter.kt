@@ -37,10 +37,10 @@ class UniversityRecyclerAdapter(
     ) {
         val university = universityList[position]
         holder.binding.universityName.text = university.name
-        if (university.stateProvince == null) {
-            holder.binding.place.text = university.alphaTwoCode
+        holder.binding.place.text = if (university.stateProvince == null) {
+            university.alphaTwoCode
         } else {
-            holder.binding.place.text = "${university.alphaTwoCode}, ${university.stateProvince}"
+            "${university.alphaTwoCode}, ${university.stateProvince}"
         }
         holder.itemView.setOnClickListener {
             universityClickListener.onUniversityClickListener(university.webPage)
@@ -70,7 +70,6 @@ class UniversityRecyclerAdapter(
     fun setNewData(newUniversityList: List<University>) {
         val diffCallback = UniversityDiffCallback(universityList, newUniversityList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-
         universityList = newUniversityList
         diffResult.dispatchUpdatesTo(this)
     }
@@ -78,7 +77,6 @@ class UniversityRecyclerAdapter(
     fun filterCountry(filteredUniversities: List<University>) {
         val diffCallback = UniversityDiffCallback(universityList, filteredUniversities)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-
         universityList = filteredUniversities
         diffResult.dispatchUpdatesTo(this)
     }

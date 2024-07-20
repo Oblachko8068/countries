@@ -1,6 +1,5 @@
 package com.example.universities.countries
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -21,7 +20,8 @@ class CountriesViewModel @Inject constructor(
     private val sharedPrefRepository: CountrySharedPrefRepository,
 ) : ViewModel() {
 
-    private var countryLiveData: LiveData<List<Country>> = countryRepository.getCountriesListLiveData()
+    private var countryLiveData: LiveData<List<Country>> =
+        countryRepository.getCountriesListLiveData()
     private val mediatorLiveData = MediatorLiveData<List<Country>>()
 
     init {
@@ -49,12 +49,12 @@ class CountriesViewModel @Inject constructor(
         }
     }
 
-    fun setSearchText(searchText: String) {
-        _searchViewLiveData.value = searchText
-    }
-
     fun saveCountryToSharedPref(country: String) {
         sharedPrefRepository.saveCountryToSharedPref(country)
+    }
+
+    fun setSearchText(searchText: String) {
+        _searchViewLiveData.value = searchText
     }
 
     companion object {

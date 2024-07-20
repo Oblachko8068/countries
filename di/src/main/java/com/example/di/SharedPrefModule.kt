@@ -9,6 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
+const val SHARED_PREF_NAME = "MyPref"
+
 @Module
 @InstallIn(SingletonComponent::class)
 class SharedPrefModule {
@@ -16,5 +18,5 @@ class SharedPrefModule {
     @Provides
     @Singleton
     fun provideSharedPreference(@ApplicationContext appContext: Context): SharedPreferences =
-        appContext.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        appContext.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE)
 }

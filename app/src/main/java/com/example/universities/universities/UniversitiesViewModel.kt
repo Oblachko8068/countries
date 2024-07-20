@@ -1,12 +1,10 @@
 package com.example.universities.universities
 
-import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.domain.model.University
-import com.example.domain.repository.CountrySharedPrefRepository
 import com.example.domain.repository.UniversityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import com.example.universities.databinding.FragmentCountriesBinding
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.universities.MainActivity
 import com.example.universities.R
 import com.example.universities.countries.CountriesViewModel.Companion.searchTextLiveData
-import com.example.universities.universities.COUNTRY
+import com.example.universities.databinding.FragmentCountriesBinding
 import com.example.universities.universities.UniversitiesFragment
 
 class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListener {
@@ -45,6 +44,10 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
         mediatorLiveData.observe(viewLifecycleOwner) {
             adapter?.setNewData(it)
         }
+        searchViewObserver(adapter)
+    }
+
+    private fun searchViewObserver(adapter: CountryRecyclerAdapter?) {
         searchTextLiveData.observe(viewLifecycleOwner) {
             adapter?.filterCountry(countriesViewModel.getFilteredCountries())
         }
@@ -58,9 +61,9 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
         })
     }
 
-    fun checkSavedCountry() {
+    private fun checkSavedCountry() {
         val savedCountry = countriesViewModel.getSharedPrefData()
-        if (savedCountry != null){
+        if (savedCountry != null) {
             launchFragment(savedCountry)
         }
     }
@@ -80,21 +83,11 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
         launchFragment(country)
     }
 
-    private fun launchFragment(country: String){
+    private fun launchFragment(country: String) {
         parentFragmentManager
             .beginTransaction()
             .addToBackStack(null)
             .replace(R.id.fragmentContainer, UniversitiesFragment.newInstance(country))
             .commitAllowingStateLoss()
-    }
-
-    companion object {
-        fun newInstance(isFirstStart: Boolean): CountriesFragment {
-            return CountriesFragment().apply {
-                arguments = Bundle().apply {
-                    putBoolean("isFirstStart", isFirstStart)
-                }
-            }
-        }
     }
 }

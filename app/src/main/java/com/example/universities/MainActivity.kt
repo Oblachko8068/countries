@@ -29,9 +29,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.fragmentContainer,  CountriesFragment.newInstance(isFirstStart))
+            .add(R.id.fragmentContainer,  CountriesFragment())
             .commit()
     }
 }

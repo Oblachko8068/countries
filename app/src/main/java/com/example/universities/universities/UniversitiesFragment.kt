@@ -35,18 +35,16 @@ class UniversitiesFragment : Fragment(), UniversityRecyclerAdapter.OnUniversityC
         super.onViewCreated(view, savedInstanceState)
         val country = arguments?.getString(COUNTRY).toString()
         universitiesViewModel.loadDataByCountry(country)
-        recyclerView = binding.recyclerViewUniversity
-        recyclerView?.setHasFixedSize(true)
-        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView?.adapter = UniversityRecyclerAdapter(
-            emptyList(),
-            this
-        )
+        setUpRecyclerView()
         val adapter = recyclerView?.adapter as? UniversityRecyclerAdapter
         val mediatorLiveData = universitiesViewModel.getMediatorLiveData()
         mediatorLiveData.observe(viewLifecycleOwner) {
             adapter?.setNewData(it)
         }
+        searchViewObserver(adapter)
+    }
+
+    private fun searchViewObserver(adapter: UniversityRecyclerAdapter?) {
         searchUniversityLiveData.observe(viewLifecycleOwner) {
             adapter?.filterCountry(universitiesViewModel.getFilteredUniversities())
         }
@@ -59,6 +57,16 @@ class UniversitiesFragment : Fragment(), UniversityRecyclerAdapter.OnUniversityC
             }
 
         })
+    }
+
+    private fun setUpRecyclerView() {
+        recyclerView = binding.recyclerViewUniversity
+        recyclerView?.setHasFixedSize(true)
+        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView?.adapter = UniversityRecyclerAdapter(
+            emptyList(),
+            this
+        )
     }
 
     override fun onUniversityClickListener(webPage: String) {

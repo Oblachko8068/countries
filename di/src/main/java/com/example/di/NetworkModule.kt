@@ -22,7 +22,6 @@ class NetworkModule {
             .addInterceptor(createInterceptor())
             .build()
 
-
     @Provides
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit =
@@ -31,7 +30,6 @@ class NetworkModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
 
     private fun createInterceptor(): Interceptor {
         val interceptor = HttpLoggingInterceptor()

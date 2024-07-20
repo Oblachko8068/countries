@@ -60,10 +60,8 @@ class CountryRecyclerAdapter(
 
     fun setNewData(newCountryList: List<Country>?) {
         if (newCountryList == null) return
-
         val diffCallback = CountryDiffCallback(countryList, newCountryList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-
         countryList = newCountryList
         diffResult.dispatchUpdatesTo(this)
     }
@@ -71,7 +69,6 @@ class CountryRecyclerAdapter(
     fun filterCountry(filteredCountries: List<Country>) {
         val diffCallback = CountryDiffCallback(countryList, filteredCountries)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-
         countryList = filteredCountries
         diffResult.dispatchUpdatesTo(this)
     }
