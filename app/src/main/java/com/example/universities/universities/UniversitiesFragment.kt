@@ -1,5 +1,7 @@
 package com.example.universities.universities
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,7 +62,8 @@ class UniversitiesFragment : Fragment(), UniversityRecyclerAdapter.OnUniversityC
     }
 
     override fun onUniversityClickListener(webPage: String) {
-        TODO("открытие браузера")
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(webPage))
+        context?.startActivity(browserIntent)
     }
 
     override fun onDestroy() {
