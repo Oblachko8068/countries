@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Universities"
 include(":app")
+include(":data")
+include(":domain")
+include(":di")
