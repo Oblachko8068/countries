@@ -1,5 +1,6 @@
 package com.example.universities.countries
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Country
 import com.example.domain.repository.CountriesRepository
+import com.example.domain.repository.CountrySharedPrefRepository
 import com.example.domain.repository.DownloadRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val downloadRepository: DownloadRepository,
-    private val countryRepository: CountriesRepository
+    private val countryRepository: CountriesRepository,
+    private val sharedPrefRepository: CountrySharedPrefRepository,
 ) : ViewModel() {
 
     private var countryLiveData: LiveData<List<Country>> = countryRepository.getCountriesListLiveData()
@@ -29,6 +32,8 @@ class CountriesViewModel @Inject constructor(
             downloadRepository.fetchData()
         }
     }
+
+    fun getSharedPrefData(): String? = sharedPrefRepository.getSavedCountry()
 
     fun getMediatorLiveData(): MediatorLiveData<List<Country>> = mediatorLiveData
 
@@ -46,6 +51,10 @@ class CountriesViewModel @Inject constructor(
 
     fun setSearchText(searchText: String) {
         _searchViewLiveData.value = searchText
+    }
+
+    fun saveCountryToSharedPref(country: String) {
+        sharedPrefRepository.saveCountryToSharedPref(country)
     }
 
     companion object {

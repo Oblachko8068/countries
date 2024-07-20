@@ -28,19 +28,9 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         supportFragmentManager
             .beginTransaction()
             .add(R.id.fragmentContainer, CountriesFragment())
             .commit()
-    }
-
-    @SuppressLint("CommitTransaction")
-    private fun launchFragment(fragment: Fragment) {
-        supportFragmentManager
-            .beginTransaction()
-            .addToBackStack(null)
-            .replace(R.id.fragmentContainer, fragment)
-            .commitAllowingStateLoss()
     }
 }

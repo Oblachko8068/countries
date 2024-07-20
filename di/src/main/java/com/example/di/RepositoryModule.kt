@@ -1,9 +1,11 @@
 package com.example.di
 
 import com.example.data.repository.CountryRepositoryImpl
+import com.example.data.repository.CountrySharedPrefRepositoryImpl
 import com.example.data.repository.DownloadRepositoryImpl
 import com.example.data.repository.UniversityRepositoryImpl
 import com.example.domain.repository.CountriesRepository
+import com.example.domain.repository.CountrySharedPrefRepository
 import com.example.domain.repository.DownloadRepository
 import com.example.domain.repository.UniversityRepository
 import dagger.Binds
@@ -33,4 +35,10 @@ abstract class RepositoryModule {
     abstract fun bindUniversityRepository(
         universityRepository: UniversityRepositoryImpl
     ): UniversityRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindCountrySharedPrefRepository(
+        countrySharedPrefRepository: CountrySharedPrefRepositoryImpl
+    ): CountrySharedPrefRepository
 }
