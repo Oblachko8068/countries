@@ -10,8 +10,8 @@ import com.example.data.model.UniversityDbEntity
 @Dao
 interface UniversityDao {
 
-    @Query("SELECT * FROM university")
-    fun getUniversitiesByCountry(): LiveData<List<UniversityDbEntity>>
+    @Query("SELECT * FROM university WHERE country = :country")
+    fun getUniversitiesByCountry(country: String): LiveData<List<UniversityDbEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertUniversityData(universityDbEntity: List<UniversityDbEntity>)

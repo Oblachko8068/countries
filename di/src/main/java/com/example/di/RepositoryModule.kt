@@ -2,8 +2,10 @@ package com.example.di
 
 import com.example.data.repository.CountryRepositoryImpl
 import com.example.data.repository.DownloadRepositoryImpl
+import com.example.data.repository.UniversityRepositoryImpl
 import com.example.domain.repository.CountriesRepository
 import com.example.domain.repository.DownloadRepository
+import com.example.domain.repository.UniversityRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -20,9 +22,15 @@ abstract class RepositoryModule {
         downloadRepository: DownloadRepositoryImpl
     ): DownloadRepository
 
-    /*@Binds
+    @Binds
     @Singleton
     abstract fun bindCountryRepository(
         countriesRepository: CountryRepositoryImpl
-    ): CountriesRepository*/
+    ): CountriesRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindUniversityRepository(
+        universityRepository: UniversityRepositoryImpl
+    ): UniversityRepository
 }
