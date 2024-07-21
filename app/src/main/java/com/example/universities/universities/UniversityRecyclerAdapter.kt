@@ -20,7 +20,7 @@ class UniversityRecyclerAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): UniversityViewHolder {
         val binding =
             UniversityBlockBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,10 +31,7 @@ class UniversityRecyclerAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     @SuppressLint("SetTextI18n")
-    override fun onBindViewHolder(
-        holder: UniversityViewHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: UniversityViewHolder, position: Int) {
         val university = universityList[position]
         holder.binding.universityName.text = university.name
         holder.binding.place.text = if (university.stateProvince == null) {
@@ -51,7 +48,7 @@ class UniversityRecyclerAdapter(
 
     class UniversityDiffCallback(
         private val oldList: List<University>,
-        private val newList: List<University>
+        private val newList: List<University>,
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int = oldList.size

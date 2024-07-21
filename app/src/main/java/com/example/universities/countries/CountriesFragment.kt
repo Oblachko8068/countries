@@ -1,6 +1,5 @@
 package com.example.universities.countries
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -25,13 +24,12 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentCountriesBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecyclerView()
@@ -39,6 +37,7 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
             checkSavedCountry()
             (activity as? MainActivity)?.isFirstStart = false
         }
+
         val adapter = recyclerView?.adapter as? CountryRecyclerAdapter
         val mediatorLiveData = countriesViewModel.getMediatorLiveData()
         mediatorLiveData.observe(viewLifecycleOwner) {
@@ -89,5 +88,11 @@ class CountriesFragment : Fragment(), CountryRecyclerAdapter.OnCountryClickListe
             .addToBackStack(null)
             .replace(R.id.fragmentContainer, UniversitiesFragment.newInstance(country))
             .commitAllowingStateLoss()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        recyclerView = null
+        _binding = null
     }
 }

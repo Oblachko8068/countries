@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val downloadRepository: DownloadRepository,
-    private val countryRepository: CountriesRepository,
+    countryRepository: CountriesRepository,
     private val sharedPrefRepository: CountrySharedPrefRepository,
 ) : ViewModel() {
 

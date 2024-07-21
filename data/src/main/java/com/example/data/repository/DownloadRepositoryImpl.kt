@@ -2,6 +2,7 @@ package com.example.data.repository
 
 import com.example.data.model.fromCountrySetToCountryDbEntity
 import com.example.data.model.fromUniversityJsonToUniversityDbEntity
+import com.example.data.network.UniversitiesApi
 import com.example.data.room.CountryDao
 import com.example.data.room.UniversityDao
 import com.example.domain.repository.DownloadRepository
@@ -19,7 +20,7 @@ class DownloadRepositoryImpl @Inject constructor(
 
     override suspend fun fetchData() {
         val response = retrofit
-            .create(com.example.data.network.UniversitiesApi::class.java)
+            .create(UniversitiesApi::class.java)
             .getUniversitiesData()
         if (response.isSuccessful) {
             if (response.body() != null) {

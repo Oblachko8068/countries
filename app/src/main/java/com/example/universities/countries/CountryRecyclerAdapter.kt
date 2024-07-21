@@ -19,7 +19,7 @@ class CountryRecyclerAdapter(
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
-        viewType: Int
+        viewType: Int,
     ): CountryViewHolder {
         val binding =
             CountryBlockBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,7 +41,7 @@ class CountryRecyclerAdapter(
 
     class CountryDiffCallback(
         private val oldList: List<Country>,
-        private val newList: List<Country>
+        private val newList: List<Country>,
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int = oldList.size
@@ -56,7 +56,6 @@ class CountryRecyclerAdapter(
             return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
-
 
     fun setNewData(newCountryList: List<Country>?) {
         if (newCountryList == null) return

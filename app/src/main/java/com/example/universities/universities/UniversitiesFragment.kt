@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.universities.databinding.FragmentUniversitiesBinding
 import com.example.universities.universities.UniversitiesViewModel.Companion.searchUniversityLiveData
 
-const val COUNTRY = "countries"
-
 class UniversitiesFragment : Fragment(), UniversityRecyclerAdapter.OnUniversityClickListener {
 
     private var _binding: FragmentUniversitiesBinding? = null
@@ -36,6 +34,7 @@ class UniversitiesFragment : Fragment(), UniversityRecyclerAdapter.OnUniversityC
         val country = arguments?.getString(COUNTRY).toString()
         universitiesViewModel.loadDataByCountry(country)
         setUpRecyclerView()
+
         val adapter = recyclerView?.adapter as? UniversityRecyclerAdapter
         val mediatorLiveData = universitiesViewModel.getMediatorLiveData()
         mediatorLiveData.observe(viewLifecycleOwner) {
@@ -81,6 +80,8 @@ class UniversitiesFragment : Fragment(), UniversityRecyclerAdapter.OnUniversityC
     }
 
     companion object {
+        const val COUNTRY = "countries"
+
         fun newInstance(country: String): UniversitiesFragment {
             return UniversitiesFragment().apply {
                 arguments = Bundle().apply {
